@@ -10,19 +10,19 @@
 int main(int argc, char *argv[]);
 int main(int argc, char *argv[])
 {
-	FILE *fd; /*file descriptor variable.*/
+	FILE *filed;
 
-	char *file_name;
+	char *filename;
 
-	char *buffer_ptr;
+	char *bufferptr;
 
-	size_t buff_size;
+	size_t buffsize;
 
 	stack_t *stack = NULL;
 
-	unsigned int line_number = 0;
+	unsigned int linenumber = 0;
 
-	instruction_t instructions[] = {
+	instruction_t instruct[] = {
 
 		{"push", push},
 		{"pall", pall},
@@ -40,11 +40,10 @@ int main(int argc, char *argv[])
 		{NULL, NULL}
 	};
 
-	file_name = argv[1];
+	filename = argv[1];
 
-	fd = fopen(file_name, "r");
+	filed = fopen(filename, "r");
 
-	/*Validate number of command line argument.*/
 
 	if (argc != 2)
 	{
@@ -53,62 +52,59 @@ int main(int argc, char *argv[])
 		exit(EXIT_FAILURE);
 	}
 
-	if (fd == NULL)
+	if (filed == NULL)
 	{
-		fprintf(stderr, "Error: Can't open file %s\n", file_name);
+		fprintf(stderr, "Error: Can't open file %s\n", filename);
 
 		exit(EXIT_FAILURE);
 	}
 
-	/*I used the getline function to read from the file stream (file)*/
-	while (getline(&buffer_ptr, &buff_size, fd) != -1)
+	while (getline(&bufferptr, &buffsize, filed) != -1)
 	{
-		char *opcode_token;
+		char *opcodetoken;
 
-		line_number += 1; /*Proceeds to read the next line in file.*/
+		linenumber += 1;
 
-		/*Checks for comment on a line*/
-		if (buffer_ptr[0] == '#' || buffer_ptr[0] == '\n')
+		if (bufferptr[0] == '#' || bufferptr[0] == '\n')
 		{
 			continue;
 		}
 
-		opcode_token = strtok(buffer_ptr, " \n\t");
+		opcodetoken = strtok(bufferptr, " \n\t");
 
-		if (opcode_token != NULL) /*Checks if it's not end of line*/
+		if (opcodetoken != NULL)
 		{
 			int i = 0;
 
-			while (instructions[i].opcode != NULL)
+			while (instruct[i].opcode != NULL)
 			{
-				if (strcmp(opcode_token, instructions[i].opcode) == 0)
+				if (strcmp(opcodetoken, instruct[i].opcode) == 0)
 				{
-					instructions[i].f(&stack, line_number);
+					instruct[i].f(&stack, linenumber);
 					break;
 				}
 				i += 1;
 			}
 
-			/*Check for invalid opcodes*/
-			if (instructions[i].opcode == NULL)
+			if (instruct[i].opcode == NULL)
 			{
-				char *op = opcode_token;
+				char *op = opcodetoken;
 
-				unsigned int ln = line_number;
+				unsigned int ln = linenumber;
 
 				char *msg = "L%u: unknown instruction %s\n";
 
 				fprintf(stderr, msg, ln, op);
-				fclose(fd);
-				free(buffer_ptr);
+				fclose(filed);
+				free(bufferptr);
 				free_stack(&stack);
 				exit(EXIT_FAILURE);
 			}
 		}
 	}
 
-	fclose(fd);
-	free(buffer_ptr);
+	fclose(filed);
+	free(bufferptr);
 	free_stack(&stack);
 	return (0);
 }

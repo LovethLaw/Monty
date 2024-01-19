@@ -38,22 +38,21 @@ typedef struct instruction_s
 	void (*f)(stack_t **stack, unsigned int line_number);
 } instruction_t;
 
-/*Function prototypes.*/
-void push(stack_t **stack, unsigned int line_number);
-void pall(stack_t **stack, unsigned int line_number);
+void push(stack_t **stack, unsigned int linenumber);
+void pall(stack_t **stack, unsigned int linenumber);
 void free_stack(stack_t **stack);
 bool is_a_number(char *ch_arr);
-void pint(stack_t **stack, unsigned int line_number);
-void pop(stack_t **stack, unsigned int line_number);
-void swap(stack_t **stack, unsigned int line_number);
-void add(stack_t **stack, unsigned int line_number);
-void nop(stack_t **stack, unsigned int line_number);
+void pint(stack_t **stack, unsigned int linenumber);
+void pop(stack_t **stack, unsigned int linenumber);
+void swap(stack_t **stack, unsigned int linenumber);
+void add(stack_t **stack, unsigned int linenumber);
+void nop(stack_t **stack, unsigned int linenumber);
 void push_stack(stack_t **stack, int value);
 void print_stack(stack_t *stack);
-void sub(stack_t **stack, unsigned int line_number);
-void div_func(stack_t **stack, unsigned int line_number);
-void mul_func(stack_t **stack, unsigned int line_number);
-void op_div(stack_t **stack, unsigned int line_number);
-void mod(stack_t **stack, unsigned int line_number);
-void pchar(stack_t **stack, unsigned int line_number);
+void sub(stack_t **stack, unsigned int linenumber);
+void div_func(stack_t **stack, unsigned int linenumber);
+void mul_func(stack_t **stack, unsigned int linenumber);
+void op_div(stack_t **stack, unsigned int linenumber);
+void mod(stack_t **stack, unsigned int linenumber);
+void pchar(stack_t **stack, unsigned int linenumber);
 #endif

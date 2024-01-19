@@ -41,21 +41,21 @@ void print_stack(stack_t *stack)
 /**
  * push - pushes an element onto the stack
  * @stack: pointer to the stack
- * @line_number: line number in the file
+ * @linenumber: line number in the file
  */
-void push(stack_t **stack, unsigned int line_number)
+void push(stack_t **stack, unsigned int linenumber)
 {
-	char *value_str;
+	char *valuestr;
 	int value;
 
-	value_str = strtok(NULL, " \t\n");
-	if (!value_str || !is_a_number(value_str))
+	valuestr = strtok(NULL, " \t\n");
+	if (!valuestr || !is_a_number(valuestr))
 	{
-		fprintf(stderr, "L%u: usage: push integer\n", line_number);
+		fprintf(stderr, "L%u: usage: push integer\n", linenumber);
 		exit(EXIT_FAILURE);
 	}
 
-	value = atoi(value_str);
+	value = atoi(valuestr);
 
 	push_stack(stack, value);
 }
@@ -63,11 +63,11 @@ void push(stack_t **stack, unsigned int line_number)
 /**
  * pall - prints all values on the stack
  * @stack: pointer to the stack
- * @line_number: line number in the file
+ * @linenumber: line number in the file
  */
-void pall(stack_t **stack, unsigned int line_number)
+void pall(stack_t **stack, unsigned int linenumber)
 {
-	(void)line_number; /* Unused parameter */
+	(void)linenumber;
 
 	print_stack(*stack);
 }
@@ -76,13 +76,13 @@ void pall(stack_t **stack, unsigned int line_number)
 /**
  * pint - prints the value at the top of the stack
  * @stack: pointer to the stack
- * @line_number: line number in the file
+ * @linenumber: line number in the file
  */
-void pint(stack_t **stack, unsigned int line_number)
+void pint(stack_t **stack, unsigned int linenumber)
 {
 	if (*stack == NULL)
 	{
-		fprintf(stderr, "L%u: can't pint, stack empty\n", line_number);
+		fprintf(stderr, "L%u: can't pint, stack empty\n", linenumber);
 		exit(EXIT_FAILURE);
 	}
 
